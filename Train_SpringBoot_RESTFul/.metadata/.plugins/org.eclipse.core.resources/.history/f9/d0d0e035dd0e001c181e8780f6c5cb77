@@ -1,7 +1,0 @@
-package com.example.demo.implement;
-
-import com.example.demo.service.ProductService;
-
-public class ProductImplement implements ProductService{
-
-}
