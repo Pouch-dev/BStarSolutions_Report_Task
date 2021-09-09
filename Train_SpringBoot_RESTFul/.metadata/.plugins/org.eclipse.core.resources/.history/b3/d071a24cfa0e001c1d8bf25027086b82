@@ -1,0 +1,56 @@
+package com.example.demo.cotroller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.demo.dao.ProductDAO;
+import com.example.demo.entity.Product;
+import com.example.demo.entity.ProductMap;
+
+@Controller
+@RequestMapping("/product.com")
+public class ProductController {
+	
+	@Autowired
+	ProductDAO ProductDAO;
+	
+	@RequestMapping("home")
+	public String form(Model model) {
+		Product Product = new Product(0,"null",0,"","","","");
+		model.addAttribute("form", Product);
+		ProductMap map = ProductDAO.findAll();
+		model.addAttribute("items", map);
+		return "/RESTful_API/Product";
+	}
+	
+	@RequestMapping("edit/{key}")
+	public String edit(Model model,@PathVariable("key")String key ) {
+		model.addAttribute("key", key);
+		Product Product = ProductDAO.findByKey(key);
+		model.addAttribute("form", Product);
+		ProductMap map = ProductDAO.findAll();
+		model.addAttribute("items", map);
+		return "/RESTful_API/Product";
+	}
+	
+	@RequestMapping("create")
+	public String create(Product Product) {
+		ProductDAO.create(Product);
+		return "redirect:/index/home";
+	}
+
+	@RequestMapping("update/{key}")
+	public String update(@PathVariable("key")String key, Product Product) {
+		ProductDAO.update(key, Product);
+		return "redirect:/index/edit/"+key;
+	}
+
+	@RequestMapping("/delete/{key}")
+	public String delete(@PathVariable("key")String key) {
+		ProductDAO.delete(key);
+		return "redirect:/index/home";
+	}
+}

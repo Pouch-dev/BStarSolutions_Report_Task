@@ -1,0 +1,39 @@
+package com.example.demo.implement;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.dao.CategoryDAO;
+import com.example.demo.entity.Category;
+import com.example.demo.service.CategoryService;
+
+@Service
+public class CategoryImplement implements CategoryService{
+	
+	@Autowired
+	CategoryDAO cateDAO;
+
+	public <S extends Integer> S save(S entity) {
+		return cateDAO.save(entity);
+	}
+
+	public Optional<Integer> findById(Category id) {
+		return cateDAO.findById(id);
+	}
+
+	public Iterable<Integer> findAll() {
+		return cateDAO.findAll();
+	}
+
+	public void deleteById(Category id) {
+		cateDAO.deleteById(id);
+	}
+
+	public void delete(Integer entity) {
+		cateDAO.delete(entity);
+	}
+	
+	
+}

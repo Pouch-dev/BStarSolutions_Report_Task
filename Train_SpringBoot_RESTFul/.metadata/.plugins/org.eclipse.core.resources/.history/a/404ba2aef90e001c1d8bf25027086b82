@@ -1,0 +1,8 @@
+package com.example.demo.entity;
+
+import java.util.HashMap;
+
+@SuppressWarnings("serial")
+public class ProductMap extends HashMap<String , Student>{
+
+}
